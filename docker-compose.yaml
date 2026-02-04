@@ -52,5 +52,5 @@ volumes:
   mongo-data:
 
 networks:
-  flashreserve-net:r
+  flashreserve-net:
     driver: bridge

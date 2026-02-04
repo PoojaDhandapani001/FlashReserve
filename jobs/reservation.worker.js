@@ -40,9 +40,8 @@ const worker = new Worker(
     console.log(`⏳ Reservation expired: ${reservationId}`);
   },
   {
-    connection: {
-      host: process.env.REDIS_HOST || "localhost",
-      port: 6379,
+     connection: {
+      url: process.env.REDIS_URL,
       maxRetriesPerRequest: null,
     },
   }

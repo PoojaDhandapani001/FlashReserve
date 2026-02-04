@@ -1,11 +1,10 @@
 const { Queue } = require("bullmq");
 
 const reservationQueue = new Queue("reservation-queue", {
-  connection: {
-    host: process.env.REDIS_HOST || "localhost",
-    port: 6379,
-    maxRetriesPerRequest: null,
-  },
+   connection: {
+      url: process.env.REDIS_URL,
+      maxRetriesPerRequest: null,
+    },
 });
 
 module.exports = reservationQueue;

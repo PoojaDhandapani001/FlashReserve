@@ -130,14 +130,12 @@ npm install --save-dev concurrently
 ### Step 3: Environment Configuration
 
 Create a .env file in the project root with the following content:
+
 ```javascript
 PORT=3000
-
 MONGO_URI=mongodb://localhost:27017/flashreserve
 JWT_SECRET=your_jwt_secret
-
-REDIS_HOST=localhost
-REDIS_PORT=6379
+REDIS_URL=redis://localhost:6379
 ```
 
 
@@ -204,7 +202,6 @@ volumes:
 networks:
   flashreserve-net:
     driver: bridge
-
 ```
 
 
