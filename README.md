@@ -151,15 +151,60 @@ Create a docker-compose.yml file in the project root:
 version: "3.9"
 
 services:
+  api:
+    build: .
+    command: node server.js
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - mongo
+    networks:
+      - flashreserve-net
+
+  worker:
+    build: .
+    command: node jobs/reservation.worker.js
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - mongo
+    networks:
+      - flashreserve-net
+
   redis:
     image: redis:7
+    container_name: flashreserve-redis
     ports:
       - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - flashreserve-net
 
   mongo:
     image: mongo:6
+    container_name: flashreserve-mongo
     ports:
       - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: flashreserve
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - flashreserve-net
+
+volumes:
+  redis-data:
+  mongo-data:
+
+networks:
+  flashreserve-net:
+    driver: bridge
+
 ```
 
 
